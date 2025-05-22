@@ -1,0 +1,132 @@
+/* Container for the login page */
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+/* Form field styling */
+.auth-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.auth-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.auth-container .btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: #4fa3f7;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-container .btn-login:hover {
+    background-color: #1976d2;
+}
+
+/* Additional links (forgot password, etc.) */
+.auth-container .link {
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+    color: #1976d2;
+    text-decoration: none;
+}
+
+.auth-container .link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .auth-container {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+
+/* Container for the register page */
+.register-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+/* Form field styling */
+.register-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.register-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.register-container .btn-register {
+    width: 100%;
+    padding: 12px;
+    background-color: #4fa3f7;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-container .btn-register:hover {
+    background-color: #1976d2;
+}
+
+/* Additional links (login instead) */
+.register-container .link {
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+    color: #1976d2;
+    text-decoration: none;
+}
+
+.register-container .link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .register-container {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+.invalid-feedback{
+    color: darkred;
+}
