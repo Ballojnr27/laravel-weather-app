@@ -49,6 +49,7 @@ class WeatherController extends Controller
                     'temp_max' => $data['main']['temp_max'] ?? 'N/A',
                     'temp_avg' => $data['main']['temp'] ?? 'N/A',
                     'description' => $data['weather'][0]['description'] ?? 'N/A',
+                    'icon' => $data['weather'][0]['icon'] ?? null, // Add this
                     'rain' => $data['rain']['1h'] ?? 'No rain',
                 ];
 
@@ -97,5 +98,4 @@ class WeatherController extends Controller
 
         return view('search_history', ['searchHistory' => $searchHistory]);
     }
-
 }

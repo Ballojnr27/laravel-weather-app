@@ -1,199 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search History</title>
-
-
-    <style>
-        body {
-    background: url(/img/background.jpg);
-    background-position: center;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    color: white;
-
-}
-.container{
-    max-width: 900px;
-    width: 1200px;
-    height: auto;
-    background-color: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(0.5rem);
-    color: white;
-}
-
-/*-----------------  BASIC STYLES  -----------------*/
-body {
-    font-family: 'Poppins', sans-serif;
-
-    margin: 0;
-    padding: 0;
-    }
-
-h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin: 2rem 0;
-    color: white;
-}
-
-/*-----------------  TABLE STYLES  -----------------*/
-.table {
-    width: 100%;
-    margin: 0 auto;
-    font-size: 20px;
-
-    border-collapse: separate; /* Enables border-spacing */
-    border-spacing: 0 15px; /* Space between rows and columns */
-    border-bottom: 2px solid white;
-}
-
-.table thead {
-    background: none;
-
-}
-
-th {
-    padding: 1rem;
-    font-size: 1.2rem;
-    text-align: left;
-    text-transform: uppercase;
-    color: white;
-    border-bottom: 2px solid white ;
-
-
-}
-
-.table tbody tr {
-    border-bottom: none;
-    padding: 1rem;
-}
-
-.table tbody td {
-    padding: 1rem ;
-    font-size: 20px;
-    color: white;
-    vertical-align: top;
-    border-radius: 8px;
-}
-
-/* Space between rows for neatness */
-.table tbody tr:not(:last-child) {
-
-
-}
-
-
-/*-----------------  LIST STYLES (Weather Data)  -----------------*/
-ul {
-
-    padding-left: 0;
-    padding-bottom: 30px;
-}
-
-ul li {
-    font-size: 20px;
-    margin: 0.5rem 0;
-    color: white;
-}
-
-/*-----------------  NO SEARCH HISTORY  -----------------*/
-p {
-    text-align: center;
-    font-size: 1.2rem;
-    color: white;
-}
-
-/*-----------------  RESPONSIVENESS  -----------------*/
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2rem;
-    }
-
-    .table {
-        width: 100%;
-        font-size: 0.9rem;
-    }
-
-    .table thead th, .table tbody td {
-        padding: 0.8rem;
-    }
-}
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
-
-    .table {
-        font-size: 0.8rem;
-        width: 100%;
-    }
-
-    .table thead th, .table tbody td {
-        padding: 0.6rem;
-    }
-
-    ul li {
-        font-size: 0.8rem;
-    }
-}
-
-
-    </style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
+<body class="bg-gradient-to-br from-blue-600 to-indigo-800 min-h-screen text-white">
 
+    <div class="max-w-4xl mx-auto px-4 py-10">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-3xl font-bold">Search History</h1>
 
-        <div class="container">
-            <center><h1 class="my-5"> Search History</h1></center>
+            <a href="/home" class="bg-white text-blue-800 font-semibold py-1 px-3 rounded shadow hover:bg-blue-100">
+                Home
+            </a>
+        </div>
 
-        @if($searchHistory->isEmpty())
-            <p>No search history available.</p>
+        @if ($searchHistory->isEmpty())
+            <p class="text-center text-lg">No search history available.</p>
         @else
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Location</th>
-                        <th>Country</th>
-                        <th>Weather Data</th>
-                        <th>Date Searched</th>
-                    </tr>
-                </thead>
-                <tbody>
-                 <b>
-                    @foreach($searchHistory as $history)
-                        <tr>
+            <div class="grid gap-6">
+                @foreach ($searchHistory as $history)
+                    <div class="bg-white/10 backdrop-blur-sm p-5 rounded-xl shadow-md">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
+                            <div>
+                                <h2 class="text-xl font-semibold">{{ $history->location }}</h2>
+                                <p class="text-sm opacity-80">{{ $history->country }}</p>
+                            </div>
+                            <p class="text-sm mt-2 md:mt-0">Searched:
+                                {{ \Carbon\Carbon::parse($history->searched_at)->format('d M Y, h:i A') }}</p>
+                        </div>
 
-                            <td class="new">{{ $history->location }}</td>
-                            <td class="new">{{ $history->country }}</td>
-                            <td>
-                                <ul>
-
-                                    <li>Wind Speed: {{ $history->weather_data['wind'] }} m/s</li>
-                                    <li>Humidity: {{ $history->weather_data['humidity'] }}%</li>
-                                    <li>Pressure: {{ $history->weather_data['pressure'] }} hPa</li>
-                                    <li>Clouds: {{ $history->weather_data['clouds'] }}%</li>
-                                    <li>Temperature: {{ $history->weather_data['temp_avg'] }} °C</li>
-                                </ul>
-                            </td>
-                            <td class="new">{{ $history->searched_at }}</td>
-                        </tr>
-                    @endforeach
-                </b>
-                </tbody>
-            </table>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4 text-sm md:text-base">
+                            <div>💨 Wind: {{ $history->weather_data['wind'] }} m/s</div>
+                            <div>💧 Humidity: {{ $history->weather_data['humidity'] }}%</div>
+                            <div>🌡 Pressure: {{ $history->weather_data['pressure'] }} hPa</div>
+                            <div>☁️ Clouds: {{ $history->weather_data['clouds'] }}%</div>
+                            <div>🌤 Temp: {{ $history->weather_data['temp_avg'] }} °C</div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         @endif
     </div>
 </body>
-</html>
 
+</html>

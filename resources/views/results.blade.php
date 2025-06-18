@@ -1,67 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Weather Results</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!---------------  CSS  --------------------->
-    <link rel="stylesheet" href="css/style.css">
-    <title>Weather App</title>
-    <!---------------  IONICONS  --------------------->
-    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-    <header>
+<body
+    class="bg-gradient-to-b from-blue-500 to-indigo-700 min-h-screen flex items-center justify-center p-4 text-white font-sans">
 
-        <div class="logo">Weather App</div>
-        <div>
-            <a class="top-right" href="/home">Home</a>
+    <div class="absolute top-4 right-4 flex gap-4 text-sm">
+        <a href="/home" class="bg-white text-blue-800 font-semibold py-1 px-3 rounded shadow hover:bg-blue-100">
+            Home
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="inline">
+            @csrf
+            <button type="submit"
+                class="bg-white text-blue-800 font-semibold py-1 px-3 rounded shadow hover:bg-blue-100">
+                Logout
+            </button>
+        </form>
+    </div>
 
-            <a class="top-right2" href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                {{ __('Logout') }}
-            </a>
+    <div class="w-full max-w-md bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 space-y-6">
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
-        </div>
-
-   </header>
-
-
-    <nav>
-
-
-        @if(isset($error))
-            <div class="alert">
+        @if (isset($error))
+            <div class="bg-red-600 text-white text-center py-3 px-4 rounded-lg">
                 {{ $error }}
             </div>
         @elseif(isset($weatherData))
-        <h1 class="my-5">Weather Conditions </h1><br><br>
-            <div class="card">
-                <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">Location: {{ $location }}, {{  $weatherData['country'] }}</li><br>
-                        <li class="list-group-item">Wind Speed: {{ $weatherData['wind'] }} m/s</li><br>
-                        <li class="list-group-item">Humidity: {{ $weatherData['humidity'] }}%</li><br>
-                        <li class="list-group-item">Pressure: {{ $weatherData['pressure'] }} hPa</li><br>
-                        <li class="list-group-item">Cloud Coverage: {{ $weatherData['clouds'] }}%</li><br>
-                        <li class="list-group-item">Cloud Description: {{ ucfirst($weatherData['description']) }}</li><br>
-                        <li class="list-group-item">Min Temperature: {{ $weatherData['temp_min'] }} °C</li><br>
-                        <li class="list-group-item">Max Temperature: {{ $weatherData['temp_max'] }} °C</li><br>
-                        <li class="list-group-item">Average Temperature: {{ $weatherData['temp_avg'] }} °C</li><br>
-                        <li class="list-group-item">Rain (last 1h): {{ $weatherData['rain'] }}</li><br>
-                    </ul>
+            <!-- Header -->
+            <div class="text-center">
+                <h1 class="text-2xl font-bold">{{ $location }}, {{ $weatherData['country'] }}</h1>
+                <p class="text-sm">{{ \Carbon\Carbon::now()->format('l, F jS, Y') }}</p>
+            </div>
+
+            <!-- Temperature & Icon -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-center sm:text-left">
+                    <p class="text-5xl font-bold">{{ $weatherData['temp_avg'] }}°C</p>
+                    <p class="capitalize text-lg">{{ $weatherData['description'] }}</p>
+                </div>
+                <img src="https://openweathermap.org/img/wn/{{ $weatherData['icon'] }}@4x.png" alt="Weather Icon"
+                    class="w-24 h-24">
+
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-2 gap-4 text-center text-white/90">
+                <div class="bg-white/20 p-3 rounded-lg">
+                    <p class="text-sm">Humidity</p>
+                    <p class="text-lg font-bold">{{ $weatherData['humidity'] }}%</p>
+                </div>
+                <div class="bg-white/20 p-3 rounded-lg">
+                    <p class="text-sm">Wind</p>
+                    <p class="text-lg font-bold">{{ $weatherData['wind'] }} km/h</p>
                 </div>
             </div>
+
+            <!-- More Info -->
+            <div class="pt-4 border-t border-white/30 text-sm space-y-2">
+                <p><strong>Min Temp:</strong> {{ $weatherData['temp_min'] }}°C</p>
+                <p><strong>Max Temp:</strong> {{ $weatherData['temp_max'] }}°C</p>
+                <p><strong>Pressure:</strong> {{ $weatherData['pressure'] }} hPa</p>
+                <p><strong>Cloud Coverage:</strong> {{ $weatherData['clouds'] }}%</p>
+                <p><strong>Rain (last 1h):</strong> {{ $weatherData['rain'] }}</p>
+            </div>
         @else
-            <p>Weather data is unavailable. Please try again.</p>
+            <p class="text-center">Weather data is unavailable. Please try again.</p>
         @endif
+
     </div>
-</nav>
+
 </body>
+
 </html>
