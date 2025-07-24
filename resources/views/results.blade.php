@@ -43,7 +43,7 @@
                     <p class="text-5xl font-bold">{{ $weatherData['temp_avg'] }}°C</p>
                     <p class="capitalize text-lg">{{ $weatherData['description'] }}</p>
                 </div>
-                <img src="https://openweathermap.org/img/wn/{{ $weatherData['icon'] }}@4x.png" alt="Weather Icon"
+                <img src="https://openweathermap.org/img/wn/{{ $weatherData['icon'] }}@4x.png" alt="Weather Icon"k,gku
                     class="w-24 h-24">
 
             </div>

@@ -16,6 +16,7 @@
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+
 }
 
 .auth-container input {
@@ -91,7 +92,7 @@
     border-radius: 8px;
 }
 
-.register-container .btn-register {
+.register-container .btn-register{
     width: 100%;
     padding: 12px;
     background-color: #4fa3f7;
